@@ -27,6 +27,7 @@ export const SHOW_INDICATOR_ID = 'show-indicator';
 export const SHOW_PANEL_ID = 'show-panel';
 export const SHOW_ACTIVITIES_ID = 'show-activities';
 export const ENABLE_HOT_CORNERS = 'enable-hot-corners';
+const SHOW_NOTIFICATION_TRAY_ID = 'show-notification-tray';
 
 export var MultiMonitorsPrefsWidget = GObject.registerClass(
     class MultiMonitorsPrefsWidget extends Gtk.Grid {
@@ -47,6 +48,7 @@ export var MultiMonitorsPrefsWidget = GObject.registerClass(
 
             this._addBooleanSwitch(_('Show Multi Monitors indicator on Top Panel.'), SHOW_INDICATOR_ID);
             this._addBooleanSwitch(_('Show Panel on additional monitors.'), SHOW_PANEL_ID);
+            this._addBooleanSwitch(_('Show Notification Tray on Top Panel.'), SHOW_NOTIFICATION_TRAY_ID);
 
             this._addSettingsBooleanSwitch(_('Enable hot corners.'), this._desktopSettings, ENABLE_HOT_CORNERS);
         }

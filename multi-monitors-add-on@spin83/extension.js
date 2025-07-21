@@ -22,6 +22,7 @@ import * as MMLayout from './mmlayout.js'
 import * as MMIndicator from './indicator.js'
 
 const SHOW_INDICATOR_ID = 'show-indicator';
+const SHOW_NOTIFICATION_TRAY_ID = 'show-notification-tray';
 
 export default class MultiMonitorsAddOn extends Extension {
 
@@ -53,6 +54,11 @@ export default class MultiMonitorsAddOn extends Extension {
         this.mmIndicator = null;
     }
 
+    _toggleNotificationTray() {
+        if (Main.panel.statusArea['dateMenu'])
+            Main.panel.statusArea['dateMenu'].visible = this._settings.get_boolean(SHOW_NOTIFICATION_TRAY_ID);
+    }
+
     enable() {
         console.log(`Enabling ${this.metadata.name}`)
 
@@ -61,6 +67,9 @@ export default class MultiMonitorsAddOn extends Extension {
 
         this._toggleIndicatorId = this._settings.connect('changed::' + SHOW_INDICATOR_ID, this._toggleIndicator.bind(this));
         this._toggleIndicator();
+
+        this._toggleNotificationTrayId = this._settings.connect('changed::' + SHOW_NOTIFICATION_TRAY_ID, this._toggleNotificationTray.bind(this));
+        this._toggleNotificationTray();
 
         this.mmLayoutManager = new MMLayout.MultiMonitorsLayoutManager();
         this._showPanelId = this._settings.connect('changed::' + MMLayout.SHOW_PANEL_ID, this.mmLayoutManager.showPanel.bind(this.mmLayoutManager));
@@ -71,6 +80,9 @@ export default class MultiMonitorsAddOn extends Extension {
         this._settings.disconnect(this._showPanelId);
         this._settings.disconnect(this._toggleIndicatorId);
         this._hideIndicator();
+        this._settings.disconnect(this._toggleNotificationTrayId);
+        if (Main.panel.statusArea['dateMenu'])
+            Main.panel.statusArea['dateMenu'].visible = true;
 
         this.mmLayoutManager.hidePanel();
         this.mmLayoutManager = null;

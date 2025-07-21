@@ -31,6 +31,12 @@
       <description>Change visibility of DateTime-Button on additional monitors.</description>
     </key>
 
+    <key name="show-notification-tray" type="b">
+      <default>true</default>
+      <summary>Show Notification Tray on Top Panel.</summary>
+      <description>Add or remove the Notification Tray from the Top Panel.</description>
+    </key>
+
     <key name="thumbnails-slider-position" type="s">
       <choices>
         <choice value='none'/>
